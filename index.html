@@ -50,6 +50,8 @@ body{background:#1a1a1a;display:flex;align-items:flex-start;justify-content:cent
 .ld-bottom{padding:12px 14px 10px}
 .ld-cta{width:100%;background:#22c55e;border:none;border-radius:20px;padding:9px 0;font-size:13px;font-weight:700;color:#000;cursor:pointer;display:block;text-align:center;transition:background 0.2s}
 .ld-cta:hover{background:#16a34a}
+.free-badge{display:inline-block;background:#22c55e;color:#000;font-size:10px;font-weight:800;padding:3px 8px;border-radius:20px;margin-bottom:6px;letter-spacing:0.3px}
+.ld-context{font-size:11px;color:#888;margin-bottom:8px;line-height:1.4}
 .ld-outcomes{display:block;text-align:center;font-size:11px;color:#555;margin-top:6px;cursor:pointer}
 .match-row{padding:0 16px;border-bottom:1px solid #1a1a1a}
 .match-inner{padding:12px 0}
@@ -89,8 +91,38 @@ body{background:#1a1a1a;display:flex;align-items:flex-start;justify-content:cent
 .modal-enter{width:100%;background:#f0c419;border:none;border-radius:24px;padding:14px;font-size:15px;font-weight:700;color:#000;cursor:pointer;margin-bottom:10px;transition:background 0.2s}
 .modal-enter:disabled{background:#252525;color:#555;cursor:not-allowed}
 .modal-cancel{width:100%;background:transparent;border:1px solid #252525;border-radius:24px;padding:12px;font-size:13px;color:#666;cursor:pointer}
+.betslip-btn{width:100%;background:transparent;border:1px solid #f0c419;border-radius:24px;padding:12px;font-size:13px;font-weight:600;color:#f0c419;cursor:pointer;margin-bottom:10px;display:none}
+.betslip-btn.show{display:block}
 .confirmed-row{display:none;flex-direction:column;align-items:center;gap:6px;margin-top:8px}
 .confirmed-row.show{display:flex}
+.betslip-overlay{display:none;position:fixed;inset:0;z-index:300;align-items:flex-end;justify-content:center}
+.betslip-overlay.visible{display:flex}
+.betslip-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.75)}
+.betslip-sheet{position:relative;z-index:1;width:375px;background:#0d0d0d;border-radius:18px 18px 0 0;border-top:1px solid #222;padding:0 0 28px}
+.bs-handle-bar{padding:12px 0 0;display:flex;justify-content:center}
+.bs-handle{width:36px;height:4px;background:#333;border-radius:2px}
+.bs-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 10px}
+.bs-title-row{display:flex;align-items:center;gap:10px}
+.bs-count{width:24px;height:24px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000}
+.bs-title{font-size:18px;font-weight:700;color:#fff}
+.bs-add-more{font-size:13px;color:#888;display:flex;align-items:center;gap:4px}
+.fancash-banner{background:#1a2a4a;margin:0 16px 12px;border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.fancash-left{display:flex;align-items:center;gap:8px;font-size:13px;color:#fff;font-weight:500}
+.fancash-learn{font-size:12px;color:#7ab4f5;font-weight:600;cursor:pointer}
+.bet-item{margin:0 16px 12px;background:#161616;border-radius:10px;border:1px solid #252525;padding:12px}
+.bet-item-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
+.bet-team{font-size:14px;font-weight:700;color:#fff}
+.bet-odds{font-size:14px;font-weight:700;color:#fff}
+.bet-type{font-size:12px;color:#888;margin-bottom:3px}
+.bet-detail{font-size:11px;color:#555;line-height:1.4;margin-bottom:12px}
+.wager-row{display:flex;align-items:center;gap:8px}
+.fc-pill{display:flex;align-items:center;gap:4px;background:#1e1e4a;border-radius:20px;padding:5px 10px;font-size:11px;font-weight:700;color:#7ab4f5}
+.quick-chips{display:flex;gap:6px;flex:1}
+.chip{background:transparent;border:1px solid #333;border-radius:20px;padding:6px 12px;font-size:12px;font-weight:600;color:#fff;cursor:pointer}
+.odds-tag{background:#252525;border-radius:6px;padding:3px 8px;font-size:11px;color:#888;display:inline-flex;align-items:center;gap:4px;margin-top:8px}
+.to-win{font-size:12px;color:#555;text-align:right;margin-top:4px}
+.bs-footer{padding:0 16px}
+.login-bet-btn{width:100%;background:#fff;border:none;border-radius:24px;padding:14px;font-size:15px;font-weight:700;color:#000;cursor:pointer}
 @keyframes slot{0%{transform:translateY(0);opacity:1}25%{transform:translateY(-12px);opacity:0}50%{transform:translateY(12px);opacity:0}75%{transform:translateY(0);opacity:1}100%{transform:translateY(0);opacity:1}}
 .spinning{animation:slot 0.35s ease-in-out}
 </style>
@@ -128,7 +160,7 @@ body{background:#1a1a1a;display:flex;align-items:flex-start;justify-content:cent
   </div>
   <div class="banner-row">
     <div class="banner-card" style="background:#0a2a0a;cursor:pointer" onclick="openModal()">
-      <div><span class="banner-eyebrow">World Cup 2026</span><div class="banner-headline">Lucky Dip<br>Win $100</div><div class="banner-sub">FanCash if your team wins</div></div>
+      <div><span class="banner-eyebrow">World Cup 2026 · Free Entry</span><div class="banner-headline">Lucky Dip<br>Win $100</div><div class="banner-sub">FanCash if your team wins</div></div>
       <div class="banner-globe">🏆</div>
     </div>
     <div class="banner-card" style="background:#2a1f0a">
@@ -168,10 +200,15 @@ body{background:#1a1a1a;display:flex;align-items:flex-start;justify-content:cent
     </div>
     <div class="ld-card" onclick="openModal()">
       <div class="ld-card-top">
-        <div><div style="font-size:15px;font-weight:700;color:#fff;line-height:1.3">World Cup Winner</div><div style="font-size:11px;color:#888;margin-top:4px">48 teams · 1 winner</div></div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#fff;line-height:1.3">World Cup Winner</div>
+          <div style="font-size:11px;color:#888;margin-top:3px">48 teams · 1 winner</div>
+        </div>
         <div class="ld-badge"><div style="font-size:36px">🏆</div><div class="ld-label">LUCKY DIP</div></div>
       </div>
       <div class="ld-bottom">
+        <span class="free-badge">FREE ENTRY</span>
+        <div class="ld-context">Get randomly assigned a World Cup team. If they win the tournament, you win $100 FanCash — no purchase needed.</div>
         <button class="ld-cta">Take Lucky Dip</button>
         <span class="ld-outcomes">View outcomes</span>
       </div>
@@ -233,7 +270,7 @@ body{background:#1a1a1a;display:flex;align-items:flex-start;justify-content:cent
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-title">World Cup Winner Dip</div>
-    <div class="modal-sub">Randomly assigned one of 48 nations. Win $100 FanCash if they lift the trophy.</div>
+    <div class="modal-sub">Get randomly assigned one of 48 nations — completely free. Win $100 FanCash if they lift the trophy.</div>
     <div class="reveal-zone">
       <div id="spin-wrap" style="display:flex;flex-direction:column;align-items:center">
         <div class="rz-placeholder">Tap enter to reveal your team</div>
@@ -245,7 +282,64 @@ body{background:#1a1a1a;display:flex;align-items:flex-start;justify-content:cent
     </div>
     <div class="prize-row" style="margin-top:12px">Win <b>$100 FanCash</b> if your team wins the World Cup</div>
     <button class="modal-enter" id="enter-btn" onclick="doSpin()">Enter Lucky Dip</button>
+    <button class="betslip-btn" id="betslip-btn" onclick="openBetslip()">+ Add to Betslip</button>
     <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+<div class="betslip-overlay" id="betslip">
+  <div class="betslip-backdrop" onclick="closeBetslip()"></div>
+  <div class="betslip-sheet">
+    <div class="bs-handle-bar"><div class="bs-handle"></div></div>
+    <div class="bs-header">
+      <div class="bs-title-row">
+        <div class="bs-count">1</div>
+        <div class="bs-title">Betslip</div>
+      </div>
+      <div class="bs-add-more">+ Add More <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#888" stroke-width="1.2"/><line x1="5" y1="8" x2="11" y2="8" stroke="#888" stroke-width="1.4" stroke-linecap="round"/><line x1="8" y1="5" x2="8" y2="11" stroke="#888" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+    </div>
+    <div class="fancash-banner">
+      <div class="fancash-left">
+        <svg width="20" height="16" viewBox="0 0 20 16" fill="none"><path d="M2 2h16v12H2z" rx="2" stroke="#7ab4f5" stroke-width="1.2" fill="none"/><path d="M6 8h8M10 5v6" stroke="#7ab4f5" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Bet with FanCash is here!
+      </div>
+      <div class="fancash-learn">Learn more</div>
+    </div>
+    <div class="bet-item">
+      <div class="bet-item-top">
+        <div>
+          <div class="bet-team" id="bs-team-name">—</div>
+          <div class="bet-type">To Win World Cup 2026</div>
+          <div class="bet-detail">World Cup 2026 · Outright Winner</div>
+        </div>
+        <div class="bet-odds" id="bs-team-odds">—</div>
+      </div>
+      <div class="wager-row">
+        <div class="fc-pill">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 1h10v10H1z" stroke="#7ab4f5" stroke-width="1" fill="none" rx="1"/></svg>
+          FanCash
+        </div>
+        <div class="quick-chips">
+          <button class="chip">+$10</button>
+          <button class="chip">+$50</button>
+        </div>
+        <div style="position:relative;flex:1">
+          <div style="background:#1e1e1e;border:1px solid #333;border-radius:8px;padding:6px 12px;height:42px;display:flex;flex-direction:column;justify-content:center">
+            <div style="font-size:10px;color:#555">Wager</div>
+            <div style="font-size:14px;font-weight:600;color:#fff">$0</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+        <div class="odds-tag">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 5h8M5 1l4 4-4 4" stroke="#888" stroke-width="1" stroke-linecap="round"/></svg>
+          FanCash · <span id="bs-odds-tag">+500</span>
+        </div>
+        <div class="to-win">To win $0.00</div>
+      </div>
+    </div>
+    <div class="bs-footer">
+      <button class="login-bet-btn">Log in or join to bet</button>
+    </div>
   </div>
 </div>
 <script>
@@ -275,19 +369,30 @@ const teams=[
   {flag:'🇺🇿',name:'Uzbekistan',odds:'+30000'},{flag:'🇰🇼',name:'Kuwait',odds:'+35000'},
   {flag:'🇹🇳',name:'Tunisia',odds:'+25000'},{flag:'🇿🇦',name:'South Africa',odds:'+28000'},
 ];
-let spinning=false,iv=null;
+let spinning=false,iv=null,finalTeam=null;
 function openModal(){
   const sw=document.getElementById('spin-wrap');
   sw.innerHTML='<div class="rz-placeholder">Tap enter to reveal your team</div>';
   document.getElementById('confirmed-row').classList.remove('show');
+  document.getElementById('betslip-btn').classList.remove('show');
   const btn=document.getElementById('enter-btn');
-  btn.disabled=false;btn.style.background='#f0c419';btn.style.color='#000';btn.textContent='Enter Lucky Dip';
-  spinning=false;
+  btn.disabled=false;btn.style.display='block';btn.style.background='#f0c419';btn.style.color='#000';btn.textContent='Enter Lucky Dip';
+  spinning=false;finalTeam=null;
   document.getElementById('modal').classList.add('visible');
 }
 function closeModal(){
   document.getElementById('modal').classList.remove('visible');
   if(iv)clearInterval(iv);
+}
+function openBetslip(){
+  if(!finalTeam)return;
+  document.getElementById('bs-team-name').textContent=finalTeam.flag+' '+finalTeam.name+' — To Win';
+  document.getElementById('bs-team-odds').textContent=finalTeam.odds;
+  document.getElementById('bs-odds-tag').textContent=finalTeam.odds;
+  document.getElementById('betslip').classList.add('visible');
+}
+function closeBetslip(){
+  document.getElementById('betslip').classList.remove('visible');
 }
 function doSpin(){
   if(spinning)return;spinning=true;
@@ -303,12 +408,13 @@ function doSpin(){
     count++;
     if(count>=total){
       clearInterval(iv);
-      const ft=teams[Math.floor(Math.random()*teams.length)];
+      finalTeam=teams[Math.floor(Math.random()*teams.length)];
       setTimeout(()=>{
-        sw.innerHTML=`<div class="rz-flag">${ft.flag}</div><div class="rz-name">${ft.name}</div><div class="rz-odds">${ft.odds} to win</div>`;
+        sw.innerHTML=`<div class="rz-flag">${finalTeam.flag}</div><div class="rz-name">${finalTeam.name}</div><div class="rz-odds">${finalTeam.odds} to win</div>`;
         setTimeout(()=>{
           document.getElementById('confirmed-row').classList.add('show');
-          btn.textContent='✓ Entered!';btn.style.background='#22c55e';
+          btn.style.display='none';
+          document.getElementById('betslip-btn').classList.add('show');
         },500);
       },200);
     }
